@@ -4,9 +4,8 @@
 #include "movements.h"
 
 void move_y_axis(Servo &tilt_servo, int &tilt_angle, char movement){
-    Serial.println("Move along y axis");
-    switch (movement){
-        case 's':
+    switch (movement >> 2){
+        case 0b10:
             Serial.println("Move down");
             if(tilt_angle + 5 > 60)
                 Serial.println("Maximum down");
@@ -15,8 +14,7 @@ void move_y_axis(Servo &tilt_servo, int &tilt_angle, char movement){
                 tilt_servo.write(tilt_angle);
             }
             break;
-        
-        case 'w':
+        case 0b01:
             Serial.println("Move up");
             if(tilt_angle - 5 < 0)
                 Serial.println("Maximum up");
@@ -31,10 +29,9 @@ void move_y_axis(Servo &tilt_servo, int &tilt_angle, char movement){
 }
 
 void move_x_axis(char movement){
-    Serial.println("Move along x axis");
 
     switch(movement){
-        case 'a':
+        case 0b10:
             Serial.println("Rotate clockwise");
             digitalWrite(ROTATION_D1, HIGH);
             digitalWrite(ROTATION_D2, LOW);
@@ -42,7 +39,7 @@ void move_x_axis(char movement){
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, LOW);
             break;
-        case 'd':
+        case 0b01:
             Serial.println("Rotate counter-clockwise");
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, HIGH);
@@ -60,16 +57,14 @@ void shoot(Servo &shoot_servo){
     shoot_servo.write(0);
 }
 
-void toggle_impulse(bool &impulse_on){
-    if(impulse_on){
-        Serial.println("Impulse off");
-        digitalWrite(IMPULSE_D1, LOW);
-        digitalWrite(IMPULSE_D2, LOW);
-        impulse_on = false;
-    } else {
+void set_impulse(bool impulse_state){
+    if(impulse_state){
         Serial.println("Impulse on");
         digitalWrite(IMPULSE_D1, LOW);
         digitalWrite(IMPULSE_D2, HIGH);
-        impulse_on = true;
+    } else {
+        Serial.println("Impulse off");
+        digitalWrite(IMPULSE_D1, LOW);
+        digitalWrite(IMPULSE_D2, LOW);
     }
 }
