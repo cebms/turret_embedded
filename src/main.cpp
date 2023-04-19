@@ -8,12 +8,7 @@ Servo tilt_servo;
 Servo shoot_servo;
 
 int tilt_angle = INITIAL_TILT_ANGLE;
-bool impulse_on = false;
 
-byte rotation_bits_mask = 0b00000011;
-byte tilt_bits_mask = 0b00001100;
-byte impulse_bit_mask = 0b00010000;
-byte shoot_bit_mask = 0b00100000;
 
 void setup() {
     pinMode(TILT_SERVO_PIN, OUTPUT);
@@ -43,28 +38,19 @@ void setup() {
 }
 
 void loop() {
-    // Run through SERIAL
-
     if(Serial.available()){
         char movement = Serial.read();
 
-        Serial.println((byte)movement);
-
-        byte rotation_input = movement & rotation_bits_mask;
-        byte tilt_input = movement & tilt_bits_mask;
-        byte impulse_input = movement & impulse_bit_mask;
-        byte shoot_input = movement & shoot_bit_mask;
-
-        move_y_axis(tilt_servo, tilt_angle, tilt_input);
-
-        move_x_axis(rotation_input);
-
-        set_impulse(impulse_input);
-
-        if(shoot_input){
+        if(movement == 'c' || movement == 'b'){
+            move_y_axis(tilt_servo, tilt_angle, movement);
+        } else if(movement == 'e' || movement == 'd'){
+            move_x_axis(movement);
+        } else if(movement == 's'){
             shoot(shoot_servo);
+        } else if(movement == 'o' || movement == 'O'){
+            toggle_impulse(movement);
         }
         
-        
+        Serial.flush();
     }
 }
