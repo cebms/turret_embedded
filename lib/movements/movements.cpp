@@ -29,7 +29,7 @@ void move_x_axis(char movement){
             // Serial.println("Rotate clockwise");
             digitalWrite(ROTATION_D1, HIGH);
             digitalWrite(ROTATION_D2, LOW);
-            delay(10);
+            delay(5);
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, LOW);
             break;
@@ -37,7 +37,7 @@ void move_x_axis(char movement){
             // Serial.println("Rotate counter-clockwise");
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, HIGH);
-            delay(10);
+            delay(5);
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, LOW);
             break;
@@ -46,7 +46,7 @@ void move_x_axis(char movement){
 
 void shoot(Servo &shoot_servo){
     // Serial.println("Shoot!");
-    shoot_servo.write(100);
+    shoot_servo.write(90);
     delay(200);
     shoot_servo.write(0);
 }
@@ -58,9 +58,9 @@ void toggle_impulse(char impulse_on){
         digitalWrite(IMPULSE_D2, LOW);
         // impulse_on = false;
     } else if(impulse_on == 'O'){
-        Serial.println("Impulse on");
         digitalWrite(IMPULSE_D1, LOW);
-        digitalWrite(IMPULSE_D2, HIGH);
+        analogWrite(IMPULSE_D2, 150);
+        // digitalWrite(IMPULSE_D2, HIGH);
         // impulse_on = true;
     }
 }

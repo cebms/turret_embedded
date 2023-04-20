@@ -15,7 +15,6 @@ void setup() {
     pinMode(SHOOT_SERVO_PIN, OUTPUT);
     pinMode(ROTATION_D1, OUTPUT);
     pinMode(ROTATION_D2, OUTPUT);
-    pinMode(IMPULSE_PWM, OUTPUT);
     pinMode(IMPULSE_D1, OUTPUT);
     pinMode(IMPULSE_D2, OUTPUT);
 
@@ -33,7 +32,6 @@ void setup() {
     digitalWrite(IMPULSE_D1, LOW);
     digitalWrite(IMPULSE_D2, LOW);
 
-    analogWrite(IMPULSE_PWM, 90);
     
 }
 
