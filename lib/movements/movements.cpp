@@ -7,15 +7,15 @@ void move_y_axis(Servo &tilt_servo, int &tilt_angle, char movement){
     switch (movement){
         case 'b':
             // Serial.println("Move down");
-            if(tilt_angle + 5 <= 60){
-                tilt_angle += 5;
+            if(tilt_angle + 1 <= 60){
+                tilt_angle += 1;
                 tilt_servo.write(tilt_angle);
             }
             break;
         case 'c':
             // Serial.println("Move up");
-            if(tilt_angle - 5 >= 0){
-                tilt_angle -= 5;
+            if(tilt_angle - 1 >= 0){
+                tilt_angle -= 1;
                 tilt_servo.write(tilt_angle);
             }
             break;
@@ -29,7 +29,7 @@ void move_x_axis(char movement){
             // Serial.println("Rotate clockwise");
             digitalWrite(ROTATION_D1, HIGH);
             digitalWrite(ROTATION_D2, LOW);
-            delay(5);
+            delay(2);
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, LOW);
             break;
@@ -37,7 +37,7 @@ void move_x_axis(char movement){
             // Serial.println("Rotate counter-clockwise");
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, HIGH);
-            delay(5);
+            delay(2);
             digitalWrite(ROTATION_D1, LOW);
             digitalWrite(ROTATION_D2, LOW);
             break;
@@ -59,7 +59,7 @@ void toggle_impulse(char impulse_on){
         // impulse_on = false;
     } else if(impulse_on == 'O'){
         digitalWrite(IMPULSE_D1, LOW);
-        analogWrite(IMPULSE_D2, 150);
+        analogWrite(IMPULSE_D2, 200);
         // digitalWrite(IMPULSE_D2, HIGH);
         // impulse_on = true;
     }
